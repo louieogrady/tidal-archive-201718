@@ -17,8 +17,6 @@ do
 let d = swingBy 0.15 4 $ slow 2 $ degradeBy 0.2 $ s "~ bgvinylsnares:17 ~ ~ ~ bgvinylsnares:17 ~ ~" # gain 0.65
 d3 $ stack [d] # orbit 2
 
-
-
 m7 $ degradeBy 0.4 $ cat [n "~", n "[c4, d5, g5, b5, f5]", n "~", n "~"] # dur 0.2 # gain 0.8
 
 m7 $ silence

@@ -2,6 +2,7 @@ import Sound.Tidal.MIDI.Context
 import Sound.Tidal.MIDI.Control
 import Sound.Tidal.Params
 import Sound.Tidal.MIDI.CC
+
 displayOutputDevices >>= putStrLn
 devices <- midiDevices
 m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
@@ -46,7 +47,6 @@ let x3test = striate' 2 (4/8) $ s "my:40 ~ " # legato 3.2 # gain ((slow 24) $ sc
 let x4test = (|+| speed ((slow 32) $ scale (0.90) (0.99) sine1)) $ slow 4 $ striate' 2 (3/8) $ s "my5:21 ~ " # legato 20 # gain ((slow 36) $ scale (0.2) (1.1) sine1)
 let ruffin1 = every 5 (rev) $ degradeBy (slow 32 $ scale (0) (1) sine1) $ slow 4 $ striate' 7 (3/8) $ cat [s "~ ruffin:3 ~ ruffin:9 ruffin:8", s "~"] # attack 0.9 # up (-5) # gain ((slow 24) $ scale (0.97) (0.2) rand)
 d1 $ stack [x4test, ruffin1] # orbit 0
-
 
 
 --kick

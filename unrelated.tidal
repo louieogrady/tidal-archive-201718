@@ -16,16 +16,6 @@ d2 $ stack [kick, snare, hihat] # orbit 1
 d2 $ silence
 
 
-
-
-
-
-
-
-
-
-
-
 -- Workings
 --do
 --let s1 = every 12 (|-| speed "-0.99") $ slow "[3 6] * 1.48" $ striate' 4 (5/8) $ degradeBy 0.1 $ cat [s "beatstochop:40 ~", s "~"] # legato (slow 18 $ scale (1) (2) sine1) # gain ((slow 47) $ scale (0.6) (1) rand)

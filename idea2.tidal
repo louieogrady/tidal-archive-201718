@@ -62,19 +62,9 @@ d3 $ swingBy 1 (4/4) $ every 3 (const $ s "~") $ degradeBy 0.45 $ someCyclesBy 0
 m5 $ degradeBy 0.65 $ slow 2 $ note (every 13 (fmap (subtract 12)) "~ ~ ~ [9, 16]") # gain ((slow 7) $ scale (0.82) (0.94) sine1) # dur ((slow 8) $ scale (0.1) (0.6) sine1)
 m7 $ degradeBy 0.65 $ slow 2 $ note (every 13 (fmap (subtract 12)) "~ ~ ~ [9, 16]") # gain 0.9
 
-
 hush
 
-
-
-
-
-
-
-
-
---- reference
-
+-- reference
 do
 --
 cps (-1)

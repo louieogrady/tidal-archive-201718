@@ -18,19 +18,6 @@ let hihat = s "jd:98*4" # nudge ((slow 25) $ scale (0.03) (-0.03) rand) # gain (
 let tom = s "~ ~ ~ mydrums:1454?" # nudge ((slow 49) $ scale (0.005) (-0.005) rand) # gain (slow 29 $ scale (0.65) (0.85) rand)
 d1 $ stack [kick, snare, hihat, tom] # orbit 1
 
-
-
-
-
-
-d2 $ silence
-
-
-
-
-
-
-
 -- workings
 
 do

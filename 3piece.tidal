@@ -25,7 +25,6 @@ d3 $ loopAt 16 $ s "~ ~ ~ my4:9" # gain ((slow 58) $ scale (0.7) (1.2) sine1) # 
 --
 d3 $ striate 5 $  loopAt 16 $ s "~ ~ ~ my4:3" # gain ((slow 58) $ scale (0.7) (1.2) sine1) # smear ((slow 48) $ scale (4) (8) sine1) # orbit 3
 
-
 d4 $ fast 2 $ striate 5 $ s "~ hih:5 ~ hih:5" # gain ((slow 26) $ scale (0.45) (0.62) sine1) # nudge ((slow 35) $ scale (0) (0.3) sine1) # freeze 1
 d4 $ s "bd:1 ~ bd:1 ~" # gain ((slow 58) $ scale (0.7) (1) sine1) # nudge ((slow 35) $ scale (0) (0.3) sine1) # orbit 3
 
@@ -33,14 +32,7 @@ d4 $ fast 2 $ cat [s "[bgvinylkicks:10 bgvinylkicks:10 bgvinylkicks:10] ~ ~ ~", 
 
 d4 $ silence
 
-
-
 d1 $ loopAt 32 $ s "mercurial2:9 mercurial2:7 mercurial2:13" # gain "1" # smear ((slow 64) $ scale (4) (8) sine1)
-
-
-
-
-
 
 
 -- TRY THESE

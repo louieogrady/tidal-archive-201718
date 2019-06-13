@@ -14,11 +14,4 @@ d1 $ stack [bright] # orbit 0
 m5 $ slow 6 $ slowcat [n "[d3, d4?] a3 g3 a3"] # dur (rand + 3) # gain 1.3 # attack 0.8
 
 d1 $ silence
-
-
-
 m5 $ silence
-
-let
-
-d2 $ stack [,]

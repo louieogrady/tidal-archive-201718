@@ -25,15 +25,11 @@ let dr = every 3 (|+| speed "-0.84") $ slow 32 $ striate' 12 (5/8) $ every 4 (di
 d3 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr] # orbit 0 # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # gain (slow 56 $ scale (0.82) (0.99) rand) # attack 4
 
 
-
-
 -- workings
 
 do
 let dr = every 5 (slow 8) $ every 3 (|+| speed "-0.84") $ slow 2 $ striate' 4 (3/8) $ discretise 13 $ cat [s "~ my5:77 ~ my5:77 ~ ~ ~ ~", s " ~ ~ atmos:7 ~ ~ ~ my5:77 ~", s "my5:77 ~  ~ atmos:10 ~  ~~", s "~  atmos:1 ~ ~ ~ my5:77 ~ ~"] # legato 4 # end (slow 56 $ scale (1) (5) rand)
 d3 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr]  # orbit 0 # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # gain (slow 56 $ scale (0.9) (1) rand)
-
-
 
 d3 $ silence
 

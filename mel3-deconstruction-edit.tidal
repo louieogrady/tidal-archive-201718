@@ -24,7 +24,6 @@ m11  $ degradeBy 0.4 $ every 9 (rev) $  within (0, 0.3) (slow 2) $ within (0.3, 
 
 m12 $ slow 2 $ cat [n "-15 ~ -10 ~ ~ ~ ~ ", n  "-15 ~ -22 ~ ~ ~ ~ "] # dur 2.5
 
-
 every 11 (const $ slow 2 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-19 -7 1 10] 8 ~", n "[-5 -17 0  5] 4 ~", n "[-3 -15] 0 ~")
 fmap +7
 
@@ -50,7 +49,6 @@ let k2 = degradeBy 0.02 $ s "~ electro1:6*2" # legato (slow 18 $ scale (0.2) (1)
 d2 $ stack [k2] # orbit 1
 --degradeBy 0.5 $ every 9 (rev) $ within (0, 0.3) (brak) $
 
-
 --drums
 do
 --let sn = stut 4 ((slow 16) $ scale (0.35) (0.5) sine1) 0.45 $ s "~ jd:24 ~ jd:24" # gain 1 # up "0.85"
@@ -66,7 +64,6 @@ let k21 = s "fr:52 ~ fr:53 ~" # gain 0.7 # legato (slow 32 $ scale (0.1) (0.7) s
 let click = s "JUKE17:4*2" # gain 0.65
 let click2 = s "bgvinylkicks:122" # gain 0.65
 d4 $ stack [click] # orbit 3
-
 
 d4 $ silence
 

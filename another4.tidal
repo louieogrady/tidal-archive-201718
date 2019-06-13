@@ -9,11 +9,7 @@ let sa2 = s "beatstochop:76"
 d2 $ stack [sa2] # orbit 1
 
 
-
-
-let track = seqP [ (0, 128, sound "bd bd*2"), (8, 128, sound "hh*2 [sn cp] cp future*4"), (16, 128, sound (samples "arpy*8" (run 16)))
-]
-d2 $ seqP [ (0, 128, sound "bd bd*2"), (8, 128, sound "hh*2 [sn cp] cp future*4"), (16, 128, sound (samples "arpy*8" (run 16)))
-]
+let track = seqP [ (0, 128, sound "bd bd*2"), (8, 128, sound "hh*2 [sn cp] cp future*4"), (16, 128, sound (samples "arpy*8" (run 16)))]
+d2 $ seqP [ (0, 128, sound "bd bd*2"), (8, 128, sound "hh*2 [sn cp] cp future*4"), (16, 128, sound (samples "arpy*8" (run 16)))]
 
 stack [d1, d2]

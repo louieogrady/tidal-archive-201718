@@ -42,7 +42,6 @@ m9 $ slowcat [note "~ ~ ~ ~ c7 ~ d7 ~ ~  ~~ g6 ~ ~ ~  a6 ", n "~ ~ ~ ~ ~ ~  c6 ~
 -- kaleidon synth in folder - greytoque / spacemail
 m7 $ fast 2 $ every 16 (const $ scramble 4 $ note ((fmap (+2)) "[f3, c4, e4, c5]") # dur (scale 1 4 sine1)) $ scramble 4 $ note ((fmap (+4)) "[f3, c4, e4, c5]") # dur (scale 1 4 sine1)
 
-
 d1 $ silence
 d2 $ silence
 d3 $ silence

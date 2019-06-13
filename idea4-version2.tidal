@@ -39,7 +39,6 @@ do
 let samp0 = degradeBy 0.9 $ (|+| speed ((slow 32) $ scale (-0.98) (-0.99) sine1)) $ slow 4 $ striate' 2 (3/8) $ gap 7 $ s "ruffin:7"
 d3 $ stack [samp0] # orbit 2
 
-
 d3 $ silence
 
 do
@@ -59,8 +58,6 @@ cps 1
 m5 $ slow 2 $ n "[~ ~ 20 22 ~ 17 15 ~]?" # nudge "[0 0.04]*4" # dur ( scale (0.1) (0.4) sine1) # gain (scale (0.4) (1.4) sine1)
 m7 $ degradeBy (slow 9 $ scale (0.3) (2) sine1)  $ every 4 (const $ iter 5 $ note (every 1 (fmap (subtract 12)) "0 7 ~ 2 ~ [2, 9] ~ ~?") # nudge "[0 0.04]*4" # dur ((slow 16) $ scale (0.1) (0.2) sine1) # gain (scale (0.4) (1.4) sine1)) $ n "~"
 
-
 m5 $ silence
-
 
 m5 $ every 10 (const $ note (every 13 (fmap (subtract 12)) "[8, 10, 3 0 22, 25] [0, 32, -6 20] [-4 -0, 10 8,]") # gain ((slow 7) $ scale (0.9) (1.5) sine1) # dur ((slow 8) $ scale (0.1) (0.3) sine1)) $ n "~"

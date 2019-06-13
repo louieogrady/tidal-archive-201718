@@ -18,12 +18,6 @@ let perc3 = (|+| speed "0.92") $ every 5 (const $ swingBy 0.38 (4/4) $ s "~ real
 let perc4 = (|+| speed "0.95") $ every 9 (const $ swingBy 0.423 (4/4) $ s "~ realclaps:3" # gain 0.7 # legato "[0.1 2] * 1.8") $ swingBy 0.41 (4/4) $ s "~ realclaps:1" # legato "[0.1 2] * 1.6" # gain 0.7  # pan "-0.25"
 d3 $ slow 2 $ stack [perc, perc2, perc3, perc4] # orbit 2
 
-
-do
-let
-d4 $ stack [] # orbit 3
-
-
 -- midi
 --transposed midi notes
 --ensoniq = ddl

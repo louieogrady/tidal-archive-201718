@@ -35,9 +35,5 @@ m7 $ slow 2 $ every 4 (scramble 8) $ note (every 5 (fmap (subtract 8)) "0, 3, 8?
 m9 $ slow 4 $ every 4 (scramble 8) $ note "0 3 8 ~ 0 10 5 ~" # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # dur ((slow 25) $ scale (2) (4) rand)
 
 
-
-
-
-
 -- workings
 m7 $ every 4 (scramble 8) $ note (every 5 (fmap (subtract 8)) "0, 3, 8? ~ 0, 10, 5 ~") # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # dur ((slow 25) $ scale (2) (4) rand)

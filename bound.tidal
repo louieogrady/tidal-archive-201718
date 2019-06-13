@@ -29,7 +29,7 @@ import Sound.Tidal.MIDI.CC
 displayOutputDevices >>= putStrLn
 devices <- midiDevices
 m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
---
+
 m9 $ every 12 (const $ slow 25 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-5 -1 2 6] -3 ~", n "[-5 - -4 ~] -1 ~", n "[-3 0 -4] 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
    $ every 24 (const $ slow 18 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-5 -1 2 6] -3 ~", n "[-5 - -4 ~] -1 ~", n "[-3 0 -4] 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
    $ someCyclesBy 0.10 (slow 4) $ slow 4 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-5 -1 2 6] -3 ~", n "[-5 - -4 ~] -1 ~", n "[-3 0 -4] 0 ~"] # dur ((slow 8) $ scale (4) (25) sine1) # attack ((slow 32) $ scale (0) (0.2) sine1)
@@ -41,10 +41,10 @@ m9 $ every 12 (const $ slow 25 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $
    # cc22 ((slow 6) $ scale (0) (100) sine1) -- xz
 
 m10 $ every 24 (const $ slow 16 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[0 4 7 11] 2 ~", n "[0 5 9 ~] 4 ~", n "[2 5 9] 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
-      $ every 32 (const $ slow 12 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[0 4 7 11] 2 ~", n "[0 5 9 ~] 4 ~", n "[2 5 9] 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
-      $ someCyclesBy 0.10 (slow 8) $ slow 8 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[0 4 7 11] 2 ~", n "[0 5 9 ~] 4 ~", n "[2 5 9] 0 ~" ] # dur ((slow 8) $ scale (6) (25) sine1) # attack ((slow 32) $ scale (0) (0.2) sine1) # gain ((slow 48) $ scale (0) (1) sine1)
-      # cc17 ((slow 32) $ scale (0) (0.9) sine1) -- release
-      # cc18 ((slow 16) $ scale (0) (25) sine1) -- decay
-      # cc19 ((slow 16) $ scale (0) (85) sine1) -- attack
-      # cc20 ((slow 12) $ scale (25) (75) sine1) -- reverb delaytime
-      # cc21 ((slow 56) $ scale (0) (10) sine1) -- cutoff
+    $ every 32 (const $ slow 12 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[0 4 7 11] 2 ~", n "[0 5 9 ~] 4 ~", n "[2 5 9] 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
+    $ someCyclesBy 0.10 (slow 8) $ slow 8 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[0 4 7 11] 2 ~", n "[0 5 9 ~] 4 ~", n "[2 5 9] 0 ~" ] # dur ((slow 8) $ scale (6) (25) sine1) # attack ((slow 32) $ scale (0) (0.2) sine1) # gain ((slow 48) $ scale (0) (1) sine1)
+    # cc17 ((slow 32) $ scale (0) (0.9) sine1) -- release
+    # cc18 ((slow 16) $ scale (0) (25) sine1) -- decay
+    # cc19 ((slow 16) $ scale (0) (85) sine1) -- attack
+    # cc20 ((slow 12) $ scale (25) (75) sine1) -- reverb delaytime
+    # cc21 ((slow 56) $ scale (0) (10) sine1) -- cutoff

@@ -13,8 +13,6 @@ let r2 = degradeBy (slow 32 $ scale (0) (1) sine1) $ slow 2 $ striate' 12 (3/8) 
 let r3 = degradeBy (slow 32 $ scale (0) (1) sine1) $ (|+| speed ((slow 64) $ scale (-1) (-1.1) sine1)) $ striate' 7 (3/8) $ cat [s "~  ruffin:4", s "ruffin:5 ~"] # attack 0.4
 d1 $ someCyclesBy 0.25 (fast 2) $ whenmod 8 4 (slow 4) $ stack [r3] # orbit 0
 
-d1 $ silence
-
 do
 let bd = degradeBy 0.3 $ slow 1 $ striate' 2 (4/8) $ s "808bd ~ ~ 808bd 808bd ~ ~ 808bd?"
 let bd2 = degradeBy 0.3 $ slow 1 $ striate' 2 (7/8) $ s "909 ~ ~ 909 909 ~ ~ 909?" # gain 0.95 # attack 0.27
@@ -43,24 +41,12 @@ every 4 (density 2)
 --d2 $ swingBy (4/4) 0.25 $ stack [bd4to4', bd4to4, sn4] # orbit 1
 d2 $ stack [sn, hc, bd3, bd2, sn4] # orbit 1
 
-d1 $ silence
-
 m7 $ cat $ [n "[-0, 4, -7]", n "-5? ~? 0? ~"]
 
 m7 $ cat $ [n "[-0, 4, -7]", n "-5? ~? 0?"]
 
 m8 $ cat [n "[-12, -8, -19]", n "[-5? ~? 0?]"] # dur ((slow 8) $ scale (1) (4) sine1)
 
-
-
 d1 $ silence
 d2 $ silence
-
 m7 silence
-
-
-
-
-
-
-d2 $ silence

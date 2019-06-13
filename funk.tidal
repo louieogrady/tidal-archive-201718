@@ -8,11 +8,9 @@ devices <- midiDevices
 m7 <- midiStream devices "UltraLite mk3 Hybrid" 9 synthController
 m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
 
-=
 cps (-1)
 cps (0)
 bps (90/60)
-
 
 -- synth on d50 = ppg wave 1 from anlog_04 library
 
@@ -28,5 +26,3 @@ d2 $ stack [snare, hihat] # orbit 1
 m9 $ every 9 (const $ cat $ [n "3, 6, 10" # dur (scale 2 8 $ slow 16 $ rand) # nudge (scale 0.05 0.10 $ slow 16 $ sine)]) $ n "~ 0, 3, 5, 8" # dur (scale 2 4 $ slow 16 $ sine)
 
 m7 $ every 9 (const $ cat $ [n "3, 6, 10" # dur (scale 2 8 $ slow 16 $ rand) # nudge (scale 0.25 0.5 $ slow 16 $ sine)]) $ slow 4 $ cat [n "~ 0, 3, 5, 8", n "0, 3, 5, 8, 12", n "0, 3, -3, 5, 12"] # dur (scale 2 8 $ slow 16 $ sine)
-
-m9 $ silence

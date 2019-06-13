@@ -2,10 +2,10 @@ import Sound.Tidal.MIDI.Context
 import Sound.Tidal.MIDI.Control
 import Sound.Tidal.Params
 import Sound.Tidal.MIDI.CC
+
 displayOutputDevices >>= putStrLn
 devices <- midiDevices
 m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
-
 
 cps 1
 
@@ -21,7 +21,6 @@ m9 $ every 24 (const $ slow 4 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ 
    # cc21 ((slow 56) $ scale (0) (10) sine1) -- cutoff
 
 m9 $ silence
-
 
 every 11 (const $ slow 2 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-19 -7 1 10] 8 ~", n "[-5 -17 0  5] 4 ~", n "[-3 -15] 0 ~")
 fmap +7

@@ -25,5 +25,4 @@ m5 $ silence
 
 -- m5 $ every 10 (const $ note (every 13 (fmap (subtract 12)) "[8, 10, 3 0 22, 25] [0, 32, -6 20] [-4 -0, 10 8,]") # gain ((slow 7) $ scale (0.9) (1.5) sine1) # dur ((slow 8) $ scale (0.1) (0.3) sine1)) $ n "~"
 
-
 d1 $ silence
