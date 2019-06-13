@@ -1,0 +1,46 @@
+import Sound.Tidal.MIDI.Context
+import Sound.Tidal.MIDI.Control
+import Sound.Tidal.Params
+import Sound.Tidal.MIDI.CC
+displayOutputDevices >>= putStrLn
+devices <- midiDevices
+m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
+
+
+cps 1
+
+bps (134/60)
+
+m9 $ every 24 (const $ slow 4 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-19 -7 1 10] 8 ~", n "[-5 -17 0  5] 4 ~", n "[-3 -15] 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
+   $ every 32 (const $ slow 8 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-29 -17 -9 0] -2 ~", n "[-15 -27 -10  -5] -6 ~", n "[-13 -25] -10 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
+   $ slow 2 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-24 -12 -4 5] 3 ~", n "[-10 -22 -5  0] -1 ~", n "[-8 -20] -5 ~" ] # dur ((slow 8) $ scale (0.5) (4) sine1) # attack ((slow 32) $ scale (0) (0.2) sine1)
+   # cc17 ((slow 32) $ scale (0) (0.9) sine1) -- release
+   # cc18 ((slow 16) $ scale (0) (25) sine1) -- decay
+   # cc19 ((slow 16) $ scale (0) (85) sine1) -- attack
+   # cc20 ((slow 12) $ scale (25) (75) sine1) -- reverb delaytime
+   # cc21 ((slow 56) $ scale (0) (10) sine1) -- cutoff
+
+m9 $ silence
+
+
+every 11 (const $ slow 2 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "[-19 -7 1 10] 8 ~", n "[-5 -17 0  5] 4 ~", n "[-3 -15] 0 ~")
+fmap +7
+
+--samples
+do
+let x = slow 128 $ striate 84 $ s "my5:3" # legato ((slow 8) $ scale (0.5) (4) sine1) # attack ((slow 16) $ scale (0) (0.3) sine1)
+d1 $ stack [x] # orbit 0
+
+--kick
+do
+let k = every 7 (rev) $ s "electro1:6 electro1:6? ~ ~ ~ ~? ~ ~"
+d2 $ stack [k] # orbit 1
+
+--drums
+do
+let sn = every 7 (swingBy (1/4) 4) $ stut 4 ((slow 16) $ scale (0.25) (0.45) sine1) 0.45 $ s "~ voodoo:4" # gain 1.3
+let sn1 = every 9 (swingBy (1/4) 6) $ stut 4 ((slow 32) $ scale (0.05) (0.3) sine1) 0.45 $ s "~ voodoo:3" # gain 0.8 # up "-3.2"
+let hih = s "bgvinylhats:37*4" # gain 0.58
+d3 $ stack [sn1, sn] # orbit 2
+
+d2 $ silence

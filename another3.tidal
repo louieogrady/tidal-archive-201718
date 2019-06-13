@@ -1,0 +1,35 @@
+bps (124/60)
+
+d1 $ silence
+
+do
+let sa = every 11 (rev) $ slow "[16 24] * 1.6" $ striate' 5 (7/8) $ s "beatstochop:74 ~ beatstochop:74" # legato 1 # gain "[0.5 0.8] * 1.4"
+d1 $ stack [sa] # orbit 0
+
+do
+let kd = slow 2 $ swingBy (3/4) 4 $ degradeBy 0.1 $ fast 2 $ s "sequential:3" # gain "[0.6 1] * 1.6"
+let kd2 = slow 2 $ swingBy (3/4) 4 $ degradeBy 0.1 $ fast 2 $ s "808bd:13" # gain "[0.5 1] * 1.3"
+let hih = slow 2 $ swingBy (1/4) 4 $ degradeBy 0.2 $ s "hih:5 ~ hih:4 ~ hih:13 ~ hih:7 ~" # gain "[0.5 0.8] * 1.4"
+let sn = slow 2 $ swingBy (3/4) 4 $ degradeBy 0.2 $ s "~ ~ sn:13 ~" # gain "[0.8 0.9] * 1.1"
+let cl = slow 2 $ swingBy (3/4) 4 $ degradeBy 0.2 $ s "~ ~ sn:5 ~" # gain "[0.8 0.9] * 1.4"
+d2 $ stack [kd, kd2, hih] # orbit 1
+
+do
+let sn = slow 2 $ swingBy (3/4) 4 $ degradeBy 0.2 $ s "~ ~ sn:13 ~" # gain "[0.8 0.9] * 1.1"
+let cl = slow 2 $ swingBy (3/4) 4 $ degradeBy 0.2 $ s "~ ~ sn:5 ~" # gain "[0.8 0.9] * 1.4"
+d3 $ stack [sn, cl] # orbit 2
+
+-- workings
+
+do
+let sa = every 11 (rev) $ slow "[16 24] * 1.6" $ striate 7 $ every 8 (const $ s "beatstochop:142 ~ beatstochop:143 ~ beatstochop:144 ~ beatstochop:145 ~" # legato 1) $ s "beatstochop:145 ~ beatstochop:144 ~ beatstochop:143 ~ beatstochop:142~ " # legato 5
+let sa2 = every 8 (rev) $ slow 16 $ striate 7 $ every 8 (const $ s "~ beatstochop:142 ~ beatstochop:143 ~ beatstochop:144 ~ beatstochop:145" # legato 1) $ s "~ beatstochop:145 ~ beatstochop:144 ~ beatstochop:143 ~ beatstochop:142" # legato 1
+let sa3 = every 9 (rev) $ slow "[16 24] * 1.6" $ striate 7 $ every 8 (const $ s "beatstochop:142 ~ beatstochop:143 ~ beatstochop:144 ~ beatstochop:145 ~" # legato 1) $ s "beatstochop:145 ~ beatstochop:144 ~ beatstochop:143 ~ beatstochop:142~ " # legato 1
+let sa4 = every 5 (rev) $ slow "[16 24] * 1.6" $ striate 7 $ every 8 (const $ s "~ beatstochop:142 ~ beatstochop:143 ~ beatstochop:144 ~ beatstochop:145" # legato 1) $ s "~ beatstochop:145 ~ beatstochop:144 ~ beatstochop:143 ~ beatstochop:142" # legato 1
+d1 $ stack [sa, sa2] # gain 1 # orbit 0
+
+m7 $ every 4 (const $ cat [n "[c4, e5] d5, g5", n "[d5,f5] a5"] # dur (rand + 10) # gain 0.9) $ s "~"
+
+m8 $ degradeBy 0.05 $ slow 2 $ every 16 (const $ slow 4 $ cat [n "~? [b5, d6] e6", n "~? a5"] # dur (rand + 15) # gain 0.9) $ s "~"
+
+m5 $ degradeBy 0.05 $ slow 2 $ cat [n "[c3 g4 e4 b5]", n "[d3 a4 d4 a5]"] # dur (rand + 4) # gain 0.9

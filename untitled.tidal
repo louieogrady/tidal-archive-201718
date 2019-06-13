@@ -1,0 +1,21 @@
+bps (140/60)
+
+do
+let samp1 = degradeBy "[0 0.2] * 1.9" $ slow 4 $ striate 4 $ chop 4 $ brak $ s "fr:45" # legato "[3 5] * 1.85"
+let samp2 = degradeBy "[0 0.2] * 1.7" $ slow 4 $ striate 8 $ chop 5 $ brak $ s "fr:46" # legato "[3 5] * 1.9" # gain 0.8
+d1 $ stack [samp1, samp2] # orbit 0
+
+do
+let samp3 = degradeBy "[0 0.2] * 1.4" $ striate 3 $ chop 3 $ s "~ beatstochop:108" # legato "[2 4] * 1.9" # attack "[0 0.2] * 2.9"
+let samp4 = degradeBy "[0 0.2] * 1.6" $ striate 3 $ chop 3 $ brak $ s "~ ~ beatstochop:145" # legato "[0.4 2] * 1.4" # attack "[0 0.05] * 2.2" # gain 0.9
+d2 $ stack [samp3] # orbit 1
+
+do
+let b2 = degradeBy 0.2 $ slow 4 $ every 7 (|*| speed "-0.99") $ degradeBy "[0 0.2] * 2.6" $ chop "[2 6] * 2.8" $ striate' 3 (4/8) $ s "beatstochop:161 beatstochop:163" # legato 1 # gain "[0.7 0.8] * 2.5"
+let aretha = degradeBy 0.7 $ every 3 (|*| speed "-0.99") $ slow 2 $ every 9 (const $ loopAt 4 $ s "beatstochop:150" # legato 4) $ loopAt 4 $ chop "[2 6] * 2.2" $ striate' 5 (3/8) $ s "beatstochop:150" # legato "[2 6] * 2.2"
+d3 $ stack [b2] # orbit 2
+
+do
+let snare = slow 2 $ s "~ 808sd:4 ~ 808sd:8 " # gain 0.7
+let kick = slow 2 $ s "bgvinylkicks:22*2 ~ bgvinylkicks:22" # gain 0.8
+d4 $ stack [snare, kick] # orbit 3

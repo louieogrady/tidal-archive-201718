@@ -1,0 +1,9 @@
+import Sound.Tidal.SpectralTricks
+bps (60/60)
+
+do
+let sa = fast 2 $ every 2 (|+| speed "-0.99") $ slow "[8 14] * 1.2" $ striate "[2 8] * 1.9" $ s "mydrums" # n (choose [100..500])  # gain 0.6
+let sa2 = fast 2 $ (|+| speed "-0.99") $ slow "[16 24] * 0.9" $ striate "[2 12] * 2" $ s "~ mydrums" # n (choose [0..100]) # gain 0.8
+d1 $ stack [sa, sa2] # orbit 0
+
+d1 $ silence

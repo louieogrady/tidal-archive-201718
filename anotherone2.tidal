@@ -1,0 +1,49 @@
+bps (140/60)
+--d3 $ silence
+
+do
+let drum1 = every 8 (const $ s "ab:5*4 ~ ab:5 ~" # cut "0.5" # gain 0.90) $ every 5 (const $ s "ab:5*2 ab:5 ab:5 ~" # cut "0.5"  # gain 0.90) $ every 13 (const $ s "~ ~ ab:5*4 ~" # cut "0.5"  # gain 0.92) $ s "ab:5 ~ ab:5 ~" # gain 0.9 # cut "0.5"
+let drum2 = sometimesBy 0.15 (|+| attack 0.4) $ slow 2 $ every 6 (const $ s "Kickz:15 ~ Kickz:12 ~" # gain 0.75) $ degradeBy 0.2 $ iter 4 $ s "Kickz:15 ~ ~ Kickz:12" # gain 0.7
+let drum3 = degradeBy 0.6 $ iter 4 $ s "~ jd:23 ~ jd:33" # gain 0.75
+let drum4 = degradeBy 0.2 $ slow 2 $ s "~ ~ realclaps:4 ~" # gain 0.6
+let drum5 = degradeBy 0.2 $ slow 2 $ s "~ ~ sequential:5 ~" # gain 0.6
+let drum6 = degradeBy 0.4 $ iter 4 $ s "hh ~ hh ~" # gain "[0.65 0.94] * 1.9"
+let drum7 = degradeBy 0.4 $ iter 4 $ cat [s "hih:3 ~ hih:6 ~", s "hih:10 ~ hih:7 ~"] # gain "[0.4 0.5] * 1.4"
+d1 $ stack [drum1, drum5] # orbit 0
+
+do
+let twink = slow 2 $ degradeBy 0.4 $ iter 4 $ s "JUKE17:6 ~ JUKE17:7 JUKE17:8" # gain 1
+d2 $ stack [twink] # orbit 1
+
+do
+let birds = loopAt 75 $ striate' 4 (7/8) $ s "fr:54" # gain "[0.6 0.8] * 1.9"
+let birds2 = loopAt 75 $ striate' 2 (3/8) $ s "fr:53" # gain "[0.75 1] * 1.4"
+d3 $ stack [birds, birds2] # orbit 2
+
+do
+let snare = slow 2 $ degradeBy 0.4 $ iter 4 $ s "JUKE17:1 ~ JUKE17 JUKE17" # gain "[0.8 1] * 1.9"
+let snare2 = slow 2 $ degradeBy 0.4 $ iter 4 $ s "JUKE17 ~ JUKE17:1 JUKE17:1" # gain "[0.8 1] * 1.4"
+let tabla = degradeBy 0.4 $ every 8 (const $ iter 4 $ s "tabla2:24 tabla2:13 tabla2:17 ~") $ iter 4 $ s "tabla2:4 tabla2:5 tabla2:12 ~" # gain "[0.75 0.9] * 1.4"
+d4 $ stack [tabla] # orbit 3
+
+d4 $ silence
+
+--m7 $ degradeBy 0.1 $ slow 2 $ cat [n "[g4, e5] d5", n "f4"] # dur (rand + 10) # gain 0.9
+m7 $ degradeBy 0.1 $ slow 2 $ every 10 (const $ cat [n "[g4, e5] d5", n "f4"] # dur (rand + 10) # gain 0.9) $ s "~"
+
+--m8 $ degradeBy 0.1 $ slow 2 $ cat [n "~? [b5, d6] e6", n "~? a5"] # dur (rand + 10) # gain 0.9
+m8 $ degradeBy 0.05 $ slow 2 $ every 16 (const $ slow 4 $ cat [n "~? [b5, d6] e6", n "~? a5"] # dur (rand + 15) # gain 0.9) $ s "~"
+
+--m9 $ degradeBy 0.1 cat [n "[c5, e5, g6, a6]", n "[a5, c5, e6, g6]", n "[g5, b5, d6, a6]"] # dur (rand + 18) # gain 0.9
+m9 $ degradeBy 0.1 $ every 1 (const $ cat [n "[c5, e5, g6, a6]", n "[a5, c5, e6, g6]", n "[g5, b5, d6, a6]"] # dur (rand + 4) # gain 1.4) $ s "~"
+
+m5 $ slow 1 $ every 4 (rev) $ degradeBy 0.72 $ cat [n "~ ~ c3", n "d4 ~ g4 a4"] # dur (rand + "[1 2] * 1.9") # gain 0.8
+
+d4 $ silence
+
+
+
+
+-- othertings
+
+m8 $ degradeBy 0.1 $ (const $ n "[a3, c4, e4]" # dur (rand + 10)) $ n "[c4, d4, e5, g5 a5 b4 c5 e4]" # dur (rand + 2) # gain 1

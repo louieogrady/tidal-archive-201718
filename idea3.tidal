@@ -1,0 +1,29 @@
+bps (145/60)
+
+do
+let jn = swingBy (-0.20) (4/4) $ degradeBy 0.2 $ every 4 (const $ s "jungbass ~") $ s "~" # legato 1 # gain 1.1
+d1 $ stack [jn] # orbit 0
+--d1 $ every 6 (const $ stack [jn1]) $ stack [s "~"] # orbit 0
+
+do
+let jnn = striate' 2 (3/8) $ degradeBy 0.2 $ (|+| speed ((slow 32) $ scale (0.98) (0.99) sine1)) $ every 12 (const $ cat [s "voodoo:4 voodoo:4", s "voodoo:4 voodoo:4", s "voodoo:4 voodoo:4"] # legato ((slow 23) $ scale (0.5) (4) sine1)) $ s "~"
+let jn1 = swingBy (-0.20) (4/4) $ degradeBy 0.2 $ every 4 (const $ s "~ ~ ~ ~ ~ jungle:12" # gain ((slow 15) $ scale (0.98) (1.3) sine1)) $ s "~"
+let jn2 = swingBy (-0.20) (4/4) $ degradeBy 0.2 $ every 4 (const $ s "~ ~ ~ ~ ~ jungle:11" # gain ((slow 13) $ scale (0.98) (1.3) sine1)) $ s "~"
+let jnnn = slow 8 $ striate' 5 (2/8) $ degradeBy 0.1 $ (|+| speed ((slow 32) $ scale (0.6) (0.99) sine1)) $ cat [s "~ ~ ~ ~my4:9", s "~ ~ ~ ~ my4:9", s "my4:9 ~ ~ ~"] # legato ((slow 23) $ scale (0.5) (3) sine1)
+--let jnnnn = slow 4 $ striate' 5 (3/16) $ degradeBy 0.1 $ (|+| speed ((slow 32) $ scale (0.95) (0.99) sine1)) $ cat [s "~ ~", s "my3:14"] # legato ((slow 18) $ scale (0.3) (1) sine1)
+--let jnnnn1 = slow 4 $ striate' 5 (2/8) $ degradeBy 0.7 $ (|+| speed ((slow 32) $ scale (0.95) (0.99) sine1)) $ cat [s "piano ~ piano:2", s "~ piano:4 ~ ~", s "piano:5 ~ piano:3"] # legato ((slow 18) $ scale (0.4) (1) sine1) # gain 1.4
+d2 $ stack [jnn, jn1, jn2] # orbit 1
+
+do
+let beat3 = degradeBy 0.2 $ chop 6 $ slow 2 $ s "~ realclaps:1 ~ realclaps:1" # gain ((slow 8) $ scale (0.76) (0.80) sine1) # legato 4
+let beat3b = degradeBy 0.4 $ slow 2 $ s "~ ~ realclaps:3 ~ " # gain ((slow 12) $ scale (0.77) (0.80) sine1) # legato 4 # up "-0.85"
+let hihat = s "hih:1*2" # gain ((slow 23) $ scale (0.6) (0.7) sine1) # up "-3"
+let hihat2 = s "hih:5*2" # gain ((slow 23) $ scale (0.15) (0.5) sine1) # up "-3"
+d3 $ swingBy (4/4) 0.25 $ stack [beat3b, hihat, hihat2] # orbit 2
+
+
+-- ensoniq: 32: z-box  // d50: living calliope
+m5 $ degradeBy 0.3 $ every 10 (const $ note (every 13 (fmap (subtract 12)) "[8, 10, 3 0 22, 25] [0, 32, -6 20] [-4 -0, 10 8,]") # gain ((slow 7) $ scale (0.9) (1.5) sine1) # dur ((slow 8) $ scale (0.1) (0.3) sine1)) $ n "~"
+m7 $ slow 2 $ degradeBy 0.1 $ every 7 (const $ note (every 13 (fmap (subtract 12)) "[8 10 3 0, 22, 25] [0 32 -6 20] [-4, -0, 10, 8]") # gain ((slow 7) $ scale (0.1) (1.5) sine1) # dur ((slow 8) $ scale (0.1) (0.4) sine1)) $ n "~"
+
+m7 $ silence

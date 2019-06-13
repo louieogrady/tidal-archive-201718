@@ -1,0 +1,29 @@
+bps (112/60)
+
+-- 36 chorus and pan
+do
+--let jnn = striate' 2 (3/8) $ degradeBy 0.2 $ (|+| speed ((slow 32) $ scale (0.98) (0.99) sine1)) $ every 12 (const $ cat [s "voodoo:4 voodoo:4", s "voodoo:4 voodoo:4", s "voodoo:4 voodoo:4"] # legato ((slow 23) $ scale (0.5) (4) sine1)) $ s "~"
+let samp = degradeBy 0.2 $ (|+| speed ((slow 32) $ scale (0.97) (0.99) sine1)) $ interlace (scramble 4 $ s "~" # begin 0.6 # gain 0.9) (striate' 4 (3/8) $ s "my3:11" # gain 0.6 # legato 2) # nudge "[0 0.04]*4"
+let samp2 = stut 1 0.5 0.2 $ scramble 5 $ s "~ beatstochop:150" # begin 0.33 # end 0.62 # nudge "[0 0.045]*4"
+d1 $ stack [samp] # orbit 0
+
+do
+let kick1 = interlace (s "sequential:3*2 ") (every 3 rev $ s "~ ~") # gain 0.75 # nudge "[0 0.025]*4"
+let kick2 = (s "bgvinylkicks:32*2 ") # nudge "[0 0.024]*4"
+d2 $ stack [kick2, kick1] # orbit 1
+
+do
+let snare = s "~ sn:09" # nudge "[0 0.032]*4"
+let snare2 = degradeBy 0.6 $ s "~ sn:08" # nudge "[0 0.029]*4" # gain 0.8
+d3 $ stack [snare, snare2] # orbit 2
+
+cps 1
+--syn-harmonium
+m5 $ slow 4 $ n "~ ~ [-23, 15] ~ ~ [-16, 3] ~ ~ [-21, 12] ~ ~ [-16, 3]" # dur 0.8 # nudge "[0 0.04]*4"
+
+m5 $ silence
+
+-- m5 $ every 10 (const $ note (every 13 (fmap (subtract 12)) "[8, 10, 3 0 22, 25] [0, 32, -6 20] [-4 -0, 10 8,]") # gain ((slow 7) $ scale (0.9) (1.5) sine1) # dur ((slow 8) $ scale (0.1) (0.3) sine1)) $ n "~"
+
+
+d1 $ silence

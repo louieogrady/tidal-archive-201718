@@ -1,0 +1,96 @@
+-- Attempt at creating a kind of chorus or different section to the track
+bps (60/60)
+
+do
+let jn = degradeBy 0.4 $ (|+| speed ((slow 16) $ scale (0.9) (1.2) sine1)) $ every 6 (const $ s "~ my4:6" # legato 0.9) $ s "my4:8 my4:6" # legato 0.9
+let jnn = striate' 3 (6/8) $ degradeBy 0.2 $ (|+| speed ((slow 32) $ scale (0.6) (0.8) sine1)) $ s "my4:9 my4:9" # legato ((slow 23) $ scale (0.5) (9) sine1)
+d1 $ stack [jn] # orbit 0
+
+do
+-- let beat = fast 2 $ gap 2 $ s "~ beatstochop ~ ~ breaks157" # gain 0.85 # legato 8 # up ((slow 8) $ scale (12) (-12) sine1)
+let beat = striate' 3 (6/7) $ loopAt 4 $ s "beatstochop:1 ~" # gain 0.9 # legato 0.5 # up ((slow 8) $ scale (12) (-12) sine1)
+let beat2 = cat [s "808bd:3 ~ ~ 808bd:3 808bd:3 ~ 808bd:3? ~ ", s "808bd:3 ~ ~ ~ 808bd:3 ~ 808bd:3? 808bd:3 "] # gain ((slow 8) $ scale (0.75) (0.8) sine1)
+let beat2b = degradeBy 0.25 $ cat [s "sequential:3 ~ ~ sequential:3 sequential:3 ~ sequential:3 ~", s "sequential:3 ~ ~ ~ sequential:3 ~ sequential:3? sequential:3"] # gain ((slow 5) $ scale (0.75) (0.8) sine1)
+let beat3 = s "808bd:3*2 ~ 808bd:3 ~" # gain ((slow 8) $ scale (0.75) (0.8) sine1)
+let beat4 = s "sequential:3 ~ sequential:3 ~" # gain ((slow 23) $ scale (0.75) (0.8) sine1)
+d2 $ degradeBy 0.1 $ fast 2 $ stack [beat3, beat4] # orbit 1
+
+do
+let snare4 = cat [s "~ bgvinylsnares:16", s "~ bgvinylsnares:16"] # gain ((slow 10) $ scale (0.6) (0.8) sine1)
+let snare3 = cat [s "~ bgvinylsnares:33", s "~ bgvinylsnares:33"] # gain ((slow 5) $ scale (0.8) (0.9) sine1)
+let snare2 = cat [s "~ sequential:5", s "~ sequential:5"] # gain ((slow 4) $ scale (0.6) (0.75) sine1)
+let snare = cat [s "~ sequential", s "~ sequential"] # gain ((slow 9) $ scale (0.3) (0.5) sine1)
+d3 $ degradeBy 0.1 $ fast 2 $ stack [snare4, snare2, snare] # orbit 2
+
+hush
+
+
+
+-- completed section
+bps (60/60)
+
+do
+let jj = fast 2 $ degradeBy 0.4 $ (|-| speed "-0.99" ) $ s "my:60 my:64" # legato 0.9 # end ((slow 8) $ scale (0.65) (0.85) sine1)
+let y = brak $ let x = "~" in interlace (sound $ slow 4 $ x) (sound $ every 3 (append "[mercurial2]*6") x) |+| speed "-0.99" # gain 0.52 # legato 6 # attack 0.5
+let z = brak $ let x = "~" in interlace (sound $ slow 4 $ x) (sound $ every 3 (append "[~ ~ mercurial2:11]*7") x) |+| speed "-0.99" # gain 0.52 # legato 6 # attack 0.5
+let jja = fast 2 $ degradeBy 0.4 $ (|-| speed "-1" ) $ s "~ ~ my4:4" # legato 1 # end ((slow 8) $ scale (0.65) (0.85) sine1)
+d1 $ every 9 (rev) $ every 6 (const $ s "~") $ stack [jj, y, z, jja] # orbit 0
+
+every 9 (rev) $ someCyclesBy 0.25 (fast 2) $ within
+
+do
+-- let beat = fast 2 $ gap 2 $ s "~ beatstochop ~ ~ breaks157" # gain 0.85 # legato 8 # up ((slow 8) $ scale (12) (-12) sine1)
+let beat = striate' 3 (6/7) $ loopAt 4 $ s "beatstochop:1 ~" # gain 0.9 # legato 0.5
+let beat2 = cat [s "808bd:3", s "~"] # gain ((slow 8) $ scale (0.8) (0.9) sine1)
+d2 $ degradeBy 0.5 $ someCyclesBy 0.25 (fast 2) $ stack [beat2, beat] # orbit 0
+
+do
+--let beat3 = slow 4 $ gap 2 $ s "~ beatstochop:1 ~ ~ ~" # gain 0.85 # legato 8 # up ((slow 8) $ scale (12) (-12) sine1)
+let beat = degradeBy 0.4 $ (|-| speed "-0.99") $ slow 8 $ chop 4 $ s "beatstochop:30 ~" # gain 0.85 # legato 0.4 # attack 0.3
+let beat2 = degradeBy 0.25 $ fast 2 $ cat [s "808bd:3", s "808bd:3"] # gain ((slow 8) $ scale (0.7) (0.9) sine1)
+let beat2b = degradeBy 0.25 $ fast 2 $ cat [s "sequential:3", s "sequential:3"] # gain ((slow 5) $ scale (0.65) (0.85) sine1)
+let beat3 = degradeBy 0.4 $ chop 6 $ slow 4 $ gap 2 $ s "~ beatstochop:1 ~ ~ ~" # gain ((slow 8) $ scale (0.65) (0.83) sine1) # legato 1.7 # up "-8"
+d2 $ swingBy 1 (4/4) $ every 5 (const $ s "~") $ someCyclesBy 0.25 (striate' 3 (6/7)) $ stack [beat2b, beat2, beat, beat3] # orbit 1
+
+do
+let snare = cat [s "~ ~ 808sd:3", s "~ ~ 808sd:3"] # gain ((slow 8) $ scale (0.65) (0.87) sine1)
+let snare2 = cat [s "~ ~ sequential:5", s "~ ~ sequential:5"] # gain ((slow 8) $ scale (0.6) (0.75) sine1)
+let snare3 = cat [s "~ ~ sequential", s "~ ~ sequential"] # gain ((slow 8) $ scale (0.3) (0.5) sine1)
+let snare4 = cat [s "~ ~ bgvinylsnares:16", s "~ ~ bgvinylsnares:16"] # gain ((slow 8) $ scale (0.6) (0.8) sine1)
+d3 $ swingBy 1 (4/4) $ every 3 (const $ s "~") $ degradeBy 0.45 $ someCyclesBy 0.25 (striate' 3 (5/8)) $ stack [snare, snare2, snare3, snare4] # orbit 2
+
+m5 $ degradeBy 0.65 $ slow 2 $ note (every 13 (fmap (subtract 12)) "~ ~ ~ [9, 16]") # gain ((slow 7) $ scale (0.82) (0.94) sine1) # dur ((slow 8) $ scale (0.1) (0.6) sine1)
+m7 $ degradeBy 0.65 $ slow 2 $ note (every 13 (fmap (subtract 12)) "~ ~ ~ [9, 16]") # gain 0.9
+
+
+hush
+
+
+
+
+
+
+
+
+
+--- reference
+
+do
+--
+cps (-1)
+cps 1
+bps (120/60)
+--
+let jj = slow 10 $ striate 14 $ s "~ my:60" # gain 1.2 # legato ((slow 4) $ scale (0.1) (3) sine1) # attack 0.6
+let beat = striate' 3 (4/8) $ s "~ ~ beatstochop:157 ~" # gain 0.9 # legato 0.6 # up ((slow 4) $ scale (5) (-7) sine1)
+let snare = degradeBy 0.1 $ slow 2 $ s "~ sn:18? ~ sn:15? " # gain 0.7
+let kick = degradeBy 0.08 $ stut 1 4 0.25 $ slowcat [s "drumtraks:6 ~ drumtraks:6 ~", s "drumtraks:6 ~ drumtraks:6 ~"] # gain 0.8
+--
+let parta = stack [jj] # orbit 0
+let parta2 = stack [beat] # orbit 1
+let parta3 = stack [kick, snare] # orbit 2
+--let parta4 = stack [d50, reaktor] # orbit 3
+--
+--
+let track = seqP [(0, 8, parta)]
+d1 $ (0 <~) $ track

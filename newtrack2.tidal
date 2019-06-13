@@ -1,0 +1,24 @@
+cps 1
+bps (120/60)
+
+do
+let x1 = striate 2 $ s "~ my4:4" # legato 7 |+| speed "-0.7"
+let dd = slow 2 $ swingBy 0.15 4 $ degradeBy 0.04 $ s "bgvinylkicks:28 ~ ~ ~" # gain 0.8
+let ddd = slow 2 $ swingBy 0.15 4 $ degradeBy 0.04 $ s "kicklinn ~ ~ ~" # gain 0.3
+d2 $ stack [dd, ddd] # orbit 0
+
+do
+let x = slow 24 $ striate 22 $ s "my4:4" # legato 6 |+| speed "-0.7" # gain 0.9
+let y = slow 24 $ striate 22 $ s "~ my4:5" # legato 1 |+| speed "-0.5" # gain 1
+let z = degradeBy 0.7 $ slow 12 $ striate 7 $ s "~ ~ my4:7 ~" # legato 0.2 |+| speed "-0.9" # gain 0.6
+d1 $ stack [x, y, z] # orbit 1
+
+do
+let d = swingBy 0.15 4 $ slow 2 $ degradeBy 0.2 $ s "~ bgvinylsnares:17 ~ ~ ~ bgvinylsnares:17 ~ ~" # gain 0.65
+d3 $ stack [d] # orbit 2
+
+
+
+m7 $ degradeBy 0.4 $ cat [n "~", n "[c4, d5, g5, b5, f5]", n "~", n "~"] # dur 0.2 # gain 0.8
+
+m7 $ silence

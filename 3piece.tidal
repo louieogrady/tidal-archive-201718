@@ -1,0 +1,79 @@
+-- midi
+import Sound.Tidal.MIDI.Context
+import Sound.Tidal.MIDI.Control
+import Sound.Tidal.Params
+import Sound.Tidal.MIDI.CC
+displayOutputDevices >>= putStrLn
+devices <- midiDevices
+m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
+m11 <- midiStream devices "loopMIDI Port 3" 10 ccallController
+m7 <- midiStream devices "loopMIDI Port 1" 9 ccallController
+
+bps (80/120)
+
+import Sound.Tidal.SpectralTricks
+
+cps 1
+
+d1 $ jux (iter 4) $ slow 8 $ (striate' 128 (1/100) $ sound "my4:5") |=| speed "[2, 3 5 4]" # gain "1" # smear ((slow 48) $ scale (4) (8) sine1) # orbit 0
+
+d1 $ loopAt 16 $ s "~ my4:3" # gain ((slow 68) $ scale (0.75) (1.4) sine1)  # smear ((slow 12) $ scale (5) (10) sine1) # orbit 0
+
+d2 $ loopAt 32 $ s "my4:5" # gain ((slow 86) $ scale (0.8) (1.5) sine1)  # smear ((slow 48) $ scale (4) (8) sine1) # orbit 1
+
+d3 $ loopAt 16 $ s "~ ~ ~ my4:9" # gain ((slow 58) $ scale (0.7) (1.2) sine1) # smear ((slow 48) $ scale (4) (8) sine1) # orbit 2
+--
+d3 $ striate 5 $  loopAt 16 $ s "~ ~ ~ my4:3" # gain ((slow 58) $ scale (0.7) (1.2) sine1) # smear ((slow 48) $ scale (4) (8) sine1) # orbit 3
+
+
+d4 $ fast 2 $ striate 5 $ s "~ hih:5 ~ hih:5" # gain ((slow 26) $ scale (0.45) (0.62) sine1) # nudge ((slow 35) $ scale (0) (0.3) sine1) # freeze 1
+d4 $ s "bd:1 ~ bd:1 ~" # gain ((slow 58) $ scale (0.7) (1) sine1) # nudge ((slow 35) $ scale (0) (0.3) sine1) # orbit 3
+
+d4 $ fast 2 $ cat [s "[bgvinylkicks:10 bgvinylkicks:10 bgvinylkicks:10] ~ ~ ~", s "bgvinylkicks:10 ~ bgvinylkicks:10 ~ ~ ~ ~ ~"] # gain ((slow 29) $ scale (0.7) (1) sine1) # nudge ((slow 35) $ scale (0) (0.3) sine1) # orbit 3
+
+d4 $ silence
+
+
+
+d1 $ loopAt 32 $ s "mercurial2:9 mercurial2:7 mercurial2:13" # gain "1" # smear ((slow 64) $ scale (4) (8) sine1)
+
+
+
+
+
+
+
+-- TRY THESE
+d2 $ sound "bd:6*4" # nudge (slow 8 $ sine)
+d2 $ sound "bd:6*4" # nudge (scale 0 1 $ slow 16 $ sine)
+d1 $ spaceOut [1,1.1..3] $ sound "cp*4"
+d1 $ spaceOut ([0.1,0.2..3] ++ [3,2.9..0.1]) $ sound "bd:6*4"
+
+-- Workings
+do
+--let kik = s "~ ~ bgvinylkicks:90" # gain 0.7 # lbrick (slow 64 $ saw) # comb ((slow 12) $ scale (0) (0.4) sine1) # freeze 1 # attack 0.2
+let kik = s ""
+let samp = randslice 14 $ s "beatstochop:119" # gain 0.7 # smear 4 # legato 2
+let samp2 = randslice 14 $ s "beatstochop:120" # gain 0.8 # freeze 1
+d1 $ stack [kik]
+-- # scram ((slow 12) $ scale (0) (4) sine1)
+
+d1 $ every 3 (|*| speed "-1") $ slowspread (slow) [8,16,4,8,32] $
+(spread' (striate' 256) (scale 0.01 0.05 $ slow 1.25 sine1) $ sound "bd:4")
+|=| speed "[1 0.5, {2 3 4}%2]"
+|=| gain "0.6"
+# comb rand
+
+d1 $ every 2 (# freeze 1) $ weave 16 (smear saw # comb sine # binshift rand) [s $ "beatstochop:120", s $ "bgvinylkicks:125"] # hbrick (slow 64 $ saw) # legato 15 # gain 2
+
+---------------------------------------------------------------------------
+-- TRY THIS
+bps (170/120)
+
+let steps = take 16 [0,0.0625..]
+
+d1 $ every 2 (density 2) $ degradeBy 0.5 $ sound "alone*8"
+|=| cut "1"
+|=| gain "1.2"
+|=| begin (choose steps)
+|=| speed "{1 1 1 1 2}%4"

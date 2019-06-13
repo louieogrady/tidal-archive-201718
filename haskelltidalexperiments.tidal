@@ -1,0 +1,7 @@
+-- haskell tidal experiments
+
+let x =  slow 2 $ scale 0.1 0.56 sine1
+let y = slow 2 $ scale 0.1 0.7 sine1
+let sample1 = s "beatstochop:48" # legato 1
+let sample2 = s "beatstochop:23" # legato 1
+if x > y then sample1 else sample2

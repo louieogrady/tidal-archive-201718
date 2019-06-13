@@ -1,0 +1,46 @@
+cps (-1)
+cps (0)
+bps (60/60)
+
+
+do
+let x = every 12 (slow 2) $ every 3 (|+| speed "-0.76") $ fast 4 $ striate' 4 (3/8) $ discretise (4/8) $ cat [s "~ ~ mydrums:749? ~", s "~ ~ mydrums:757? ~", s "~ ~ mydrums:850 ~", s "~ ~ mydrums:825 ~"] # legato 0.5 # gain (slow 84 $ scale (0.85) (1) rand)
+let x2 = slow 4 $ gap 8 $ s "my4:11 ~ ~ ~" # gain (slow 84 $ scale (0.75) (1) rand) # legato 4
+let x4 = slow 4 $ striate' 3 (3/8) $ gap 24 $ degradeBy 0.04 $ s "~ breaks125" # gain (slow 84 $ scale (0.75) (0.9) rand) # legato 2
+let x3 =  slow 4 $ striate' 4 (7/8) $  s "bound" # gain (slow 84 $ scale (0.7) (0.96) rand)
+d1 $ sometimesBy 0.25 (|+| speed "-0.99") $ stack [x2, x4] # legato (slow 84 $ scale (1) (8) rand) # begin (slow 84 $ scale (0.1) (1) rand) # end (slow 48 $ scale (0.1) (1) rand)
+   # orbit 0
+--d1 $ striate' 1 (3/4) $ sometimesBy 0.97 (|+| speed "-0.99") $ stack [x2] # nudge ((slow 32) $ scale (0.010) (-0.010) rand) # legato (slow 84 $ scale (1) (5) rand) # begin (slow 84 $ scale (1) (100) rand) # end (slow 48 $ scale (1) (100) rand)
+
+--d1 $ spread ($) [striate' 1 (3/16), striate' 4 (3/8), striate' 2 (7/16)] $ sometimesBy 0.97 (|+| speed "-0.99") $ stack [x2] # nudge ((slow 32) $ scale (0.005) (-0.005) rand) # legato (slow 84 $ scale (1) (2) rand) # attack (slow 84 $ scale (1) (3) sine1) # begin (slow 84 $ scale (1) (100) rand) # end (slow 48 $ scale (1) (100) rand)
+
+
+
+d1 $ silence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------
+--workings
+
+do
+let d = fastspread slow [2, 4/3, 4] $ degradeBy 0.01 $ iter 4 $ s "~ bgvinylsnares:17? ~ sequential:6?" # gain (slow 84 $ scale (0.75) (0.8) rand)
+let dd = every 4 (zoom (0.25, 0.75)) $ fastspread slow [2, 4/3, 4] $ degradeBy 0.04 $ s "~ sequential:6 ~ sequential:7" # gain (slow 84 $ scale (0.75) (0.85) rand)
+let ddd = every 4 (zoom (0.25, 0.75)) $ fastspread slow [2, 4/3, 4] $ degradeBy 0.04 $ s "popkick ~ popkick ~ popkick ~ ~ ~" # n (choose [6,11,4]) # gain (slow 84 $ scale (0.75) (0.9) rand)
+let dddd = s "hh:5 ~ ~ hh:5 ~ hh:5 ~ ~ hh:5 ~ ~ hh:5 ~" # gain (slow 84 $ scale (0.75) (0.9) rand)
+d2 $ stack [dd, dddd] # orbit 1

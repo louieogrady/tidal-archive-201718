@@ -1,0 +1,66 @@
+bps (109/60)
+
+-- nb = take away all the degradeBy's for a much more smoother 4/4 style piece
+
+-- 36 chorus and pan
+do
+--let jnn = striate' 2 (3/8) $ degradeBy 0.2 $ (|+| speed ((slow 32) $ scale (0.98) (0.99) sine1)) $ every 12 (const $ cat [s "voodoo:4 voodoo:4", s "voodoo:4 voodoo:4", s "voodoo:4 voodoo:4"] # legato ((slow 23) $ scale (0.5) (4) sine1)) $ s "~"
+let samp = degradeBy (slow 11 $ scale (0) (1.4) sine1) $ slow 4 $ every 8 (const $ cat [s "~", s "~", s "~"]) $ degradeBy 0.4 $ (|+| speed ((slow 32) $ scale (0.90) (0.99) sine1)) $ interlace (scramble 4 $ s "~" # begin (slow 16 $ scale (0.1) (0.2) sine1) # end (slow 16 $ scale (0.3) (0.5) sine1) # gain 0.9) (striate' 4 (3/8) $ s "my3:11" # attack 0.3 # gain 0.35 # legato (slow 16 $ scale (0.2) (0.6) sine1)) # nudge "[0 0.04]*4"
+--let samp2 = every 16 (const $ scramble 4 $ s "~ ~ ~ beatstochop:166" # begin (slow 32 $ scale (0.40) (0.50) sine1) # end (slow 16 $ scale (0.8) (0.99) sine1) # attack "0.1 0.3 * 1.4" # up "-2" # gain 0.8 # legato ((slow 8) $ scale (2) (6) sine1) # nudge "[0 0.045]*4") $ cat [s "~", s "~", s "~"]
+--let samp3 = degradeBy 0.9 $ scramble 5 $ (|+| speed ((slow 32) $ scale (0.97) (0.99) sine1)) $ s "~ beatstochop:166" # begin (slow 32 $ scale (0.35) (0.75) sine1) # end (slow 16 $ scale (0.25) (0.6) sine1) # nudge "[0 0.045]*4"
+let samp4 = slow 4 $ every 8 (const $ cat [s "~", s "~", s "~"]) $ degradeBy 0.8 $ (|+| speed ((slow 32) $ scale (-0.80) (-0.89) sine1)) $ interlace (scramble 4 $ s "~" # begin (slow 16 $ scale (0.1) (0.2) sine1) # end (slow 16 $ scale (0.3) (0.5) sine1) # gain 0.9) (striate' 4 (3/8) $ s "my4:9"  # attack "0.1 0.3 * 1.4" # gain 0.35 # legato (slow 16 $ scale (0.2) (0.6) sine1)) # nudge "[0 0.04]*4"
+let samp5 = degradeBy (slow 32 $ scale (0) (1.4) sine1) $ slow 4 $ striate' 5 (3/8) $ s "my:3" # gain 1.2 # legato 0.3 # begin (slow 32 $ scale (0.10) (0.80) sine1) # end (slow 16 $ scale (0.4) (0.9) sine1) # attack 0.4
+let samp6 = degradeBy 0.7 $ striate' 3 (4/7) $ s "~ beatstochop:1 ~" # gain 0.7 # legato 0.8 # up ((slow 8) $ scale (12) (-12) sine1) # attack 0.6
+let samp7 = (|+| speed ((slow 32) $ scale (1) (1.5) sine1)) $ degradeBy (slow 32 $ scale (0) (1.4) sine1) $ slow 4 $ striate' 5 (3/8) $ s "my3:35" # gain 0.6 # attack 1 # legato 0.2 # begin (slow 32 $ scale (0.10) (0.80) sine1) # end (slow 16 $ scale (0.4) (0.9) sine1)
+let samp8 = (|+| speed ((slow 32) $ scale (0.99) (0.98) sine1)) $ degradeBy (slow 18 $ scale (0) (1.4) sine1) $ slow 4 $ striate' 2 (3/8) $ s "my2:10" # gain 1 # attack 1.7 # legato 0.4 # begin (slow 32 $ scale (0.10) (0.80) sine1) # end (slow 16 $ scale (0.4) (0.9) sine1)
+d1 $ stack [samp4, samp8] # orbit 0
+
+d2 $ silence
+d3 $ silence
+d4 $ silence
+
+do
+let kick1 = every 16 (const $ cat [s "~", s "~", s "~"]) $ interlace (s "808bd:7*2 ") (every 3 rev $ s "~ ~") # gain 0.75 # nudge "[0 0.025]*4"
+let kick2 = every 16 (const $ cat [s "~", s "~", s "~"]) $ s "808bd:8*2 " # nudge "[0 0.024]*4" #  up ((slow 48) $ scale (12) (-36) sine1) # gain ((slow 9) $ scale (0.9) (0.0) sine1)
+let kick3 = chop 3 $ degradeBy 0.4 $ every 8 (const $ cat [s "~", s "~", s "~"]) $ iter 8 $ cat [s "sequential:3 ~ sequential:3 sequential:3 ~ sequential:3 ~ ~ ", s "~ sequential:3 sequential:3 sequential:3 ~ sequential:3 ~"] # nudge "[0 0.025]*4"
+let kick4 = chop 4 $ degradeBy 0.4 $ every 8 (const $ cat [s "~", s "~", s "~"]) $ iter 8 $ cat [s "bgvinylkicks:32 ~ bgvinylkicks:32 bgvinylkicks:32 ~ bgvinylkicks:32 ~ ~", s "~ bgvinylkicks:32 bgvinylkicks:32 bgvinylkicks:32 ~ bgvinylkicks:32 ~ "] # nudge "[0 0.024]*4"
+let kick5 = degradeBy 0.4 $ fast 2 $ every 16 (const $ cat [s "~", s "~", s "~"]) $ s "hardcore:4*2" # nudge "[0 0.024]*4"
+let kick6 = fast 2 $ chop 3 $ s "808bd:7" # nudge "[0 0.0254]*4" # gain 0.82 # up ((slow 48) $ scale (12) (-36) sine1)
+let kick7 = fast 2 $ chop 2 $ s "808bd:8" # nudge "[0 0.025]*4" # gain 0.82 # up ((slow 48) $ scale (12) (-36) sine1)
+let kick8 = fast 2 $ chop 3 $ s "808bd:7" # nudge "[0 0.0254]*4" # gain ((slow 32) $ scale (0.9) (0) sine1) # up ((slow 48) $ scale (12) (-36) sine1)
+let kick9 = fast 2 $ chop 2 $ s "808bd:8" # nudge "[0 0.025]*4" # gain ((slow 32) $ scale (0.9) (0) sine1) # up ((slow 32) $ scale (0.9) (-36) sine1)
+let kick10 = fast 2 $ chop 3 $ s "808bd:7" # nudge "[0 0.025]*4" # gain 0.9
+let kick11 = fast 2 $ chop 2 $ s "808bd:8" # nudge "[0 0.025]*4" # gain 0.9
+d2 $ stack [kick8, kick9] # orbit 1 -- volume up and down
+d2 $ stack [kick7, kick6] # orbit 1 -- volume steady but pitch up and down
+--d2 $ stack [kick11, kick10] # orbit 1
+
+do
+let samp0 = degradeBy 0.9 $ (|+| speed ((slow 32) $ scale (-0.98) (-0.99) sine1)) $ slow 4 $ striate' 2 (3/8) $ gap 7 $ s "ruffin:7"
+d3 $ stack [samp0] # orbit 2
+
+
+d3 $ silence
+
+do
+let beat3 = degradeBy (slow 24 $ scale (0) (0.9) sine1) $ degradeBy 0.3 $ chop 6 $ slow 2 $ s "~ realclaps:1 ~ realclaps:1" # gain ((slow 8) $ scale (0.76) (0.80) sine1) # legato 4
+let beat3b = degradeBy (slow 24 $ scale (0) (0.9) sine1) $ within (0.1, 0.75) (# up ((slow 48) $ scale (-8) (-6) sine1)) $ degradeBy 0.6 $ slow 2 $ s "~ jd:20 ~ jd:20" # gain ((slow 12) $ scale (0.77) (0.87) sine1) # legato 4
+let beat3c = degradeBy (slow 24 $ scale (0) (0.9) sine1) $ degradeBy 0.1  $ s "~ jd:20 ~ jd:20" # gain ((slow 12) $ scale (0.77) (0.87) sine1) # legato 4 # up "-1.5"
+let hihat = degradeBy 0.5 $ s "hih:1*2" # gain ((slow 23) $ scale (0.6) (0.7) sine1) # up "-4"
+let kick6 = s "jd:31? ~ jd:31? ~ " # nudge "[0 0.024]*4" # gain 0.5
+let kick7 = degradeBy (slow 7 $ scale (0) (1.4) sine1) $ fast 0.5 $ s " ~ sequential:3 ~ sequential:3" # nudge "[0 0.024]*4" # gain 0.7 # up "-2"
+let kick8 = degradeBy (slow 7 $ scale (0) (1.4) sine1) $ fast 0.5 $ s "jd:26 ~ jd:26 ~" # nudge "[0 0.024]*4" # gain 0.8 # legato 0.4 # up "-2"
+d4 $ swingBy (4/4) 0.25 $ stack [beat3] # orbit 3
+
+-- up "-0.85"
+
+cps 1
+--syn-harmonium
+m5 $ slow 2 $ n "[~ ~ 20 22 ~ 17 15 ~]?" # nudge "[0 0.04]*4" # dur ( scale (0.1) (0.4) sine1) # gain (scale (0.4) (1.4) sine1)
+m7 $ degradeBy (slow 9 $ scale (0.3) (2) sine1)  $ every 4 (const $ iter 5 $ note (every 1 (fmap (subtract 12)) "0 7 ~ 2 ~ [2, 9] ~ ~?") # nudge "[0 0.04]*4" # dur ((slow 16) $ scale (0.1) (0.2) sine1) # gain (scale (0.4) (1.4) sine1)) $ n "~"
+
+
+m5 $ silence
+
+
+m5 $ every 10 (const $ note (every 13 (fmap (subtract 12)) "[8, 10, 3 0 22, 25] [0, 32, -6 20] [-4 -0, 10 8,]") # gain ((slow 7) $ scale (0.9) (1.5) sine1) # dur ((slow 8) $ scale (0.1) (0.3) sine1)) $ n "~"

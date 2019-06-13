@@ -1,0 +1,139 @@
+transitions file -
+
+bps (130/60)
+import Sound.Tidal.SpectralTricks
+import Sound.Tidal.MIDI.Context
+import Sound.Tidal.MIDI.Control
+import Sound.Tidal.Params
+import Sound.Tidal.MIDI.CC
+displayOutputDevices >>= putStrLn
+devices <- midiDevices
+m5 <- midiStream devices "UltraLite mk3 Hybrid" 9 synthController
+m9 <- midiStream devices "loopMIDI Port 2" 9 ccallController
+
+
+----- sync test with ableton
+cps (-1)
+cps (0)
+bps (130/60)
+
+m9 $ every 200 (const $ cat $ [n "36" # dur 11 # nudge (scale 0.25 0.5 $ slow 16 $ sine)]) $ n "~"
+
+---- basic sync = set cps -1 and then cps 0 then bps 160 to restart the cycle at the beginning
+---- make sure there is no count-in in ableton
+---- match ableton bpm
+
+
+m9 $ every 4 (const $ slow 4 $ iter (irand 16) $ every 7 (rev) $ scramble 12 $ cat [n "0 4 7 11 2 ~", n "0 5 9 ~ 4 ~", n "2 5 9 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
+   $ every 8 (const $ slow 2 $ iter (irand 16) $ every 3 (rev) $ scramble 12 $ cat [n "0 4 7 11 2 ~", n "0 5 9 ~ 4 ~", n "2 5 9 0 ~"] # cc17 ((slow 32) $ scale (0) (0.2) sine1) # cc18 ((slow 16) $ scale (0) (1) sine1) # cc19 ((slow 16) $ scale (0) (52) sine1) # cc20 ((slow 12) $ scale (50) (100) sine1) # cc21 ((slow 56) $ scale (45) (125) sine1))
+   $ someCyclesBy 0.10 (slow 8) $ slow 8 $ iter (irand 16) $ every 8 (rev) $ scramble 12 $ cat [n "0 4 7 11 2 ~", n "0 5 9 ~ 4 ~", n "2 5 9 0 ~" ] # dur ((slow 8) $ scale (0.5) (4) sine1) # attack ((slow 32) $ scale (0) (0.2) sine1) # gain ((slow 48) $ scale (0) (1) sine1)
+   # cc17 ((slow 32) $ scale (0) (0.9) sine1) -- release
+   # cc18 ((slow 16) $ scale (0) (25) sine1) -- decay
+   # cc19 ((slow 16) $ scale (0) (85) sine1) -- attack
+   # cc20 ((slow 12) $ scale (25) (75) sine1) -- reverb delaytime
+   # cc21 ((slow 56) $ scale (0) (10) sine1) -- cutoff
+
+
+
+-------
+
+
+
+
+m9 $ slow 3 $ cat [n "21 ~ 14 19 ~ 12 ~ 9 ~", s "~"] # nudge ((slow 37) $ scale (0.005) (-0.005) rand)
+
+d2 $ silence
+
+do
+let x = every 12 (slow 2) $ every 3 (|+| speed "-0.76") $ fast 8 $ striate' 4 (6/8) $ discretise (7/8) $ cat [s "~ ~ mydrums:749? ~", s "~ ~ mydrums:750? ~", s "~ ~ mydrums:800 ~", s "~ ~ mydrums:819 ~"] # legato 1 # gain (slow 84 $ scale (0.85) (1) rand)
+let x2 = fast 4 $ striate' 4 (3/8) $ discretise (5/8) $ s "~ mydrums:1397*18?" # gain (slow 84 $ scale (0.55) (0.7) rand)
+d1 $ within (0.78, 0.99) (|-| speed "-0.99") $ stack [x, x2] # orbit 2 # nudge ((slow 32) $ scale (0.005) (-0.005) rand)
+
+
+
+
+---------
+
+do
+let x = every 12 (slow 2) $ every 3 (|+| speed "-0.76") $ fast 4 $ striate' 4 (3/8) $ discretise (4/8) $ cat [s "~ ~ mydrums:749? ~", s "~ ~ mydrums:757? ~", s "~ ~ mydrums:850 ~", s "~ ~ mydrums:825 ~"] # legato 1 # gain (slow 84 $ scale (0.85) (1) rand)
+let x2 = fast 4 $ striate' 4 (3/8) $ discretise (5/8) $ s "~ mydrums:1397*18?" # gain (slow 84 $ scale (0.55) (0.7) rand)
+d1 $ spread ($) [fast 6, rev, striate' 3 (3/16), striate' 4 (7/8)] $ within (0.4, 0.99) (|-| speed "-0.99") $ stack [x, x2] # orbit 2 # nudge ((slow 32) $ scale (0.005) (-0.005) rand)
+
+d1 $ silence
+d1 = keyboard input
+
+do
+let dr = every 12 (slow 2) $ every 3 (|+| speed "-0.86") $ fast 4 $ striate' 2 (3/8) $ cat [s "~ ~ ~", s "~ ~ ~ mydrums:78 ~ ~ ~ mydrums:10"] # legato 4 # release 5
+d2 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr] # orbit 1 # nudge ((slow 57) $ scale (0.005) (-0.005) rand) # gain (slow 21 $ scale (0.88) (1) rand)
+-- let dr = every 12 (slow 2) $ every 3 (|+| speed "-0.86") $ fast 4 $  striate' 4 (3/8) $ discretise (5/8) $ cat [s "mydrums:115 mydrums:100", s "mydrums:78 mydrums:10"] # legato 4 # release 5
+
+do 
+let drexcerpt = every 12 (slow 2) $ every 3 (|+| speed "0.87") $ slow 2 $ striate 60 $ discretise (14/16) $ cat [s "~ my5:77 ~", s "~ my5:77? ~"] # legato 32
+d3 $ within (0.4, 0.65) (|+| speed "-0.59") $ stack [drexcerpt] # orbit 0 # nudge ((slow 57) $ scale (0.005) (-0.005) rand) # gain (slow 21 $ scale (0.88) (1) rand)
+
+--do
+---let dr = every 3 (|+| speed "-0.84") $ slow 32 $ striate' 5 (5/8) $ every 4 (discretise 4) $ every 5 (discretise 8) $ every 6 (discretise 12) $ cat [s "my5:77 ~ my5:77 ~", s " my5:77 ~ my5:77 ~", s "my5:77 ~  my5:77 ~ ", s "atmos:6 ~ my5:77 ~"] # legato 6 # end (slow 56 $ scale (1) (8) rand)
+--d4 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr] # orbit 0 # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # gain (slow 56 $ scale (0.82) (1.2) rand) # attack 4
+
+do
+let drkick = every 12 (slow 2) $ every 3 (|+| speed "-0.86") $ fast 4 $  striate' 4 (3/8) $ discretise (5/8) $ cat [s "mydrums:115 mydrums:100", s "~ ~"] # legato 4 # release 5
+d5 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [drkick] # orbit 3 # nudge ((slow 57) $ scale (0.005) (-0.005) rand) # gain (slow 21 $ scale (0.88) (1) rand)
+
+
+do
+let str8k = every 12 (slow 2) $ every 3 (|+| speed "-0.8") $ fast 8 $  discretise (6/8) $ cat [s "~ mydrums:117 ~ mydrums:84 ~ ", s "~ mydrums:85 ~  mydrums:89 ~ ~"] # legato 4 # release 5
+d6 $ within (0.60, 0.75) (|-| speed "-0.99") $ stack [str8k] # orbit 5 # nudge ((slow 57) $ scale (0.005) (-0.005) rand) # gain (slow 21 $ scale (0.88) (1) rand)
+
+
+
+d3 $ silence
+
+
+do
+--let sn = stut 4 ((slow 16) $ scale (0.35) (0.5) sine1) 0.45 $ s "~ jd:24 ~ jd:24" # gain 1 # up "0.85"
+let sn1 = ifp ((== 0).(flip mod 2)) (striate 1) (striate 4) $ s "~ jd:33 ~ jd:33" # gain 0.85 # up "0" # legato (slow 32 $ scale (0.1) (0.3) sine1)
+let hih = ifp ((== 0).(flip mod 3)) (striate 2) (striate 4) $ s "bgvinylhats:38*4" # gain 0.58 # up "-0.8"
+let snare = ifp ((== 0).(flip mod 3)) (striate 2) (striate 4) $ s "~ sn:12 ~ sn:43" # gain 0.75 # legato (slow 32 $ scale (0.1) (0.5) sine1) # up "0"
+d5 $  stack [sn1] # orbit 5
+
+
+
+----
+----
+
+
+do
+let x = slow 12 $ scramble 4 $ striate 3 $ s "my5:77 atmos:9 my5:77 my5:76 my5:77" # gain 1 # legato 1 |+| speed "-0.99" # end 0.7
+let y = brak $ let x = "~" in interlace (sound $ slow 4 $ x) (sound $ every 3 (append "[bd]*4") x) |+| speed "-0.99" # gain 0.52 # legato 6 # attack 0.5
+t3 (wash (striate 3) 8) $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [x, y] # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # gain (slow 56 $ scale (0.82) (1.2) rand) # attack 2 # orbit 0
+
+do
+let dr = every 3 (|+| speed "-0.84") $ slow 64 $ striate' 12 (5/8) $ every 4 (discretise 4) $ every 5 (discretise 8) $ every 6 (discretise 12) $ cat [s "my5:77 ~ my5:77 ~", s " my5:77 ~ my5:77 ~", s "my5:77 ~  my5:77 ~ ", s "atmos:9 ~ my5:77 ~"] # legato 2 # end (slow 56 $ scale (1) (8) rand)
+t3 (xfadeIn 8) $ spread ($) [striate' 5 (8/16), slow 4, striate' 2 (8/16), striate' 3 (3/16), striate' 4 (7/8)] $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr] # orbit 0 # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # gain (slow 56 $ scale (0.82) (1.2) rand) # attack 0.5
+
+
+
+
+
+
+
+
+
+-- workings
+
+do
+let dr = every 12 (slow 2) $ every 3 (|+| speed "-0.86") $ fast 4 $  striate' 4 (3/8) $ discretise (5/8) $ cat [s "mydrums:115 mydrums:100", s "mydrums:78 mydrums:10"] # legato 4 # release 5
+d2 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr] # orbit 1 # nudge ((slow 57) $ scale (0.005) (-0.005) rand) # gain (slow 21 $ scale (0.88) (1) rand)
+
+
+do
+let dr = every 5 (slow 8) $ every 3 (|+| speed "-0.84") $ slow 2 $ striate' 4 (3/8) $ discretise 13 $ cat [s "~ my5:77 ~ my5:77 ~ ~ ~ ~", s " ~ ~ atmos:7 ~ ~ ~ my5:77 ~", s "my5:77 ~  ~ atmos:10 ~  ~~", s "~  atmos:1 ~ ~ ~ my5:77 ~ ~"] # legato 4 # end (slow 56 $ scale (1) (5) rand)
+d3 $ within (0.40, 0.75) (|-| speed "-0.99") $ stack [dr]  # orbit 0 # nudge ((slow 100) $ scale (0.005) (-0.005) rand) # gain (slow 56 $ scale (0.9) (1) rand)
+
+
+
+d3 $ silence
+
+d1 $ discretise 4 $ s "my5:74" # legato 2 # end 3
+
+d1 $ slow 4 $ s (discretise 25 $ choose["my5:74", "my5:76"]) # legato 4 # attack 2 # release 3

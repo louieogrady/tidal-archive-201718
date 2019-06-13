@@ -1,0 +1,104 @@
+do
+--preamble
+cps (-1)
+cps 1
+bps (110/60)
+-- let section -- declariation of samples
+let jj = slow 10 $ striate 14 $ s "~ my:59" # gain 1.2 # legato ((slow 4) $ scale (0.1) (3) sine1) # attack 0.6
+let beat = striate' 3 (4/8) $ s "~ ~ beatstochop:157 ~" # gain 0.9 # legato 0.6 # up ((slow 4) $ scale (5) (-7) sine1)
+let snare = degradeBy 0.1 $ slow 2 $ s "~ sn:18? ~ sn:15? " # gain 0.7
+let kick = degradeBy 0.08 $ stut 1 4 0.25 $ slowcat [s "drumtraks:6 ~ drumtraks:6 ~", s "drumtraks:6 ~ drumtraks:6 ~"] # gain 0.8
+let reaktor = m7 $ degradeBy 0.1 $ fast 2 $ slowcat [n "[c4, c5?], c5, g5, e5"] # dur (rand + 7) # gain 1.3 # attack 0.4
+let d50 = m5 $ slow 4 $ slowcat [n "[as4, f4, f5, c6]", n "[as4, f4, f5, c6]", n "[gs4, ds4, ds5, as5]", n "[gs4, ds4, ds5, as5]"] # dur (rand + 4.2) # attack 0.7
+-- stack section
+let parta = stack [jj] # orbit 0
+let parta2 = stack [beat] # orbit 1
+let parta3 = stack [kick, snare] # orbit 3
+let parta4 = m5 $ slow 4 $ slowcat [n "[as4, f4, f5, c6]", n "[as4, f4, f5, c6]", n "[gs4, ds4, ds5, as5]", n "[gs4, ds4, ds5, as5]"] # dur (rand + 4.2) # attack 0.7 # orbit 3
+let track = seqP [(8, 16, parta4)]
+d1 $ (0 <~) $ track
+
+
+m7 $ silence
+
+
+
+do
+let jj = slow 10 $ striate 14 $ s "~ my:59" # gain 1.3 # legato ((slow 4) $ scale (0.1) (3) sine1) # attack 0.6 # orbit 0
+let beat = striate' 3 (4/8) $ s "~ ~ beatstochop:157 ~" # gain 0.9 # legato 0.6 # up ((slow 4) $ scale (5) (-7) sine1) # orbit 1
+let snare = degradeBy 0.1 $ slow 2 $ s "~ sn:18? ~ sn:15? " # gain 0.7 # orbit 3
+let kick = degradeBy 0.08 $ stut 1 4 0.25 $ slowcat [s "drumtraks:6 ~ drumtraks:6 ~", s "drumtraks:6 ~ drumtraks:6 ~"] # gain 0.8 # orbit 3
+m7 $ degradeBy 0.001 $ slowcat [n "[c4, c5?], c5, g5, e5"] # dur (rand + 96) # gain 1.3 # attack 0.4
+m5 $ slow 4 $ slowcat [n "[as4, f4, f5, c6]", n "[as4, f4, f5, c6]", n "[gs4, ds4, ds5, as5]", n "[gs4, ds4, ds5, as5]"] # dur (rand + 4.2) # attack 0.7
+d1 $ stack [kick, snare, beat, jj]
+
+d1 $ silence
+
+
+
+m7 $ degradeBy 0.1 $ fast 2 $ slowcat [n "[c4, c5?], c5, g5, e5"] # dur (rand + 7) # gain 1.3 # attack 0.4
+
+m5 $ slow 4 $ slowcat [n "[as4, f4, f5, c6]", n "[as4, f4, f5, c6]", n "[gs4, ds4, ds5, as5]", n "[gs4, ds4, ds5, as5]"] # dur (rand + 4.2) # attack 0.7
+
+m7 $ silence
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- reference
+d1 $ seqP [
+  (0, 12, sound "bd bd*2"),
+  (4, 12, sound "hh*2 [sn cp] cp future*4"),
+  (8, 12, sound (samples "arpy*8" (run 16)))
+]
+
+-- workings
+
+do
+let x = slow 10 $ gap 10 $ s "my2:3" # gain 0.9 # attack 0.2
+let y = (|+| speed "-0.9") $ slow 8 $ gap 12 $ s "~ my4:2" # gain 0.6
+d1 $ stack [x, y]
+
+do
+let z = slow 10 $ gap 10 $ s "my:16" # gain 0.9
+d2 $ stack [z]
+
+--
+
+let track = seqP  [
+                  (0,16, y),
+                  (16,32, z)
+                  ]
+d1 $ (0 <~) $ track
+
+-- organise with orbits?
+
+do
+bps (120/60)
+cps (-1)
+cps 1
+let y = slow 2 $ gap 36 $ s "my4:4"
+let z = slow 10 $ gap 10 $ s "my:16" # gain 0.9
+let track = seqP [(0, 4, y), (4, 24, z)]
+d1 $ (0 <~) $ track
+
+--
+
+d2 $ (0 <~) $ track # orbit 1
+d3 $ (0 <~) $ track # orbit 2
+d4 $ (0 <~) $ track # orbit 3

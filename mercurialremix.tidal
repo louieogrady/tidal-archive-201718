@@ -1,0 +1,41 @@
+bps (97/60)
+
+do
+let bass = degradeBy 0.2 $ s "mercurial2:4" # attack 0.7 # legato 3.5 # gain 2
+let bass2 = randslice 7 $ ifp ((== 0).(flip mod 2)) (striate' 3 (7/8)) (# legato (scale 0.3 4 sine1)) $ s "mercurial2:10" # gain 1 # legato 1
+let bass3 = loopAt 64 $ ifp ((== 0).(flip mod 2)) (striate' 3 (7/8)) (# legato (scale 0.3 4 sine1)) $ s "mercurial2:11" # gain 1.5 # legato 1
+let snare = slow 8 $ degradeBy 0.06 $ fast (discretise 4 $ choose [1..4]) $ s "~ jazz:7 ~ ~" # gain 0.7
+let tom = slow 8 $ degradeBy 0.09 $ fast (discretise 4 $ choose [1..4]) $ s "~ drumtraks:12 ~ ~" # gain 0.7
+d1 $ stack [bass, snare, tom] # orbit 0
+
+do
+let guitar = randslice 4 $ ifp ((== 0).(flip mod 2)) (striate' 3 (7/8)) (# legato (scale 0.3 4 sine1)) $ s "mercurial2:9" # gain 1 # legato 4
+let guitar3 = degradeBy 0.03 $ slow 4 $ randslice 9 $ striate' 4 (3/8) $ s "beatstochop:95" # legato 16 # gain 1 # lpf (scale 800 9000 tri)
+let guitar4 = randslice 9 $ ifp ((== 0).(flip mod 2)) (striate' 3 (7/8)) (# legato (scale 0.3 4 sine1)) $ chop 7 $ s "mercurial2:11" # legato 4 # gain 1
+let guitar2 = degradeBy 0.08 $ every 7 (|+| delay (scale 0.25 1 tri)) $ degradeBy 0.3 $ slow 2 $ randslice 9 $ striate' 4 (3/8) $ s "beatstochop:63" # legato 0.75 # begin "-5" # cut "-5" # end 10 # lpf 1600 # gain 0.9 |+| delayfeedback 0.45 |+| delaytime (5/8)
+d2 $ stack [guitar3, guitar2] # orbit 1
+
+do
+let kick2 = every 5 (iter 5) $ every 8 (const $ s "clubkick:2*2 clubkick:2 ~ clubkick:2 ~") $ every' 6 2 (within (0.35, 0.89) (stut 6 0.25 0.5)) $ degradeBy 0.25 $ cat [s "clubkick:2 clubkick:2 ~ clubkick:2 ~", s "clubkick:2 clubkick:2*2 ~ clubkick:2 ~"] # gain "[0.9 1] * 5"
+let kick = every 5 (iter 5) $ every 8 (const $ s "ifdrums*2 ifdrums ~ ifdrums ~") $ every' 7 5 (within (0.75, 1.25) (stut 4 0.25 0.4)) $ degradeBy 0.25 $ cat [s "ifdrums ifdrums ~ ifdrums ~", s "ifdrums ifdrums*2 ~ ifdrums ~"] # gain "[0.9 1] * 3.7"
+let kick3 = striate' 4 (3/8) $ every' 6 2 (within (0.35, 0.89) (stut 6 0.25 0.5)) $ degradeBy 0.03 $ cat [s "clubkick:2 ~ clubkick:2 ~", s "clubkick:2 ~ clubkick:2 ~"] # gain "[0.9 1] * 5"
+let kick4 = striate' 4 (5/8) $ every' 7 5 (within (0.75, 1.25) (stut 4 0.25 0.4)) $ degradeBy 0.05 $ cat [s "ifdrums ~ ifdrums ~", s "ifdrums ~ ifdrums ~"] # gain "[0.9 1] * 3.7"
+d3 $ stack [kick2, kick] # orbit 2
+
+
+m7 $ degradeBy 0.1 $ slow 4 $ whenmod 8 6 (const $ n "[a3, c4, e4]" # dur (rand + 5)) $ cat [n "[c3, d4]", n "[d3, e4] d4"] # dur (rand + 5)
+
+m5 $ degradeBy 0.1 $ slow 2 $ whenmod 8 6 (const $ n "[a3, c4, e4]" # dur (rand + 5)) $ cat [n "[c3, d4]", n "[d3, e4] c4"] # dur (rand + 10) # gain 1
+
+m8 $ degradeBy 0.1 $ (const $ n "[a3, c4, e4]" # dur (rand + 10)) $ n "[c4, d4, e5, g5 a5 b4 c5 e4]" # dur (rand + 2) # gain 1
+
+d4 $ silence
+
+m5 $ slow 4 $ cat [n "[a4, c4, e4, g4]", n "[g3, b3, f4, a4]" ] # gain 0.95 # dur 3
+
+
+
+
+-- workings
+let tom = degradeBy 0.01 $ cat [s "bgvinylhats*13", s "bgvinylhats*12", s "bgvinylhats*16", s "bgvinylhats*11"] # n (irand 60)
+let tom2 = degradeBy 0.01 $ cat [s "bgvinylsnares*14", s "bgvinylsnares*8", s "bgvinylsnares*18", s "bgvinylsnares*12"] # n (irand 60) # gain 0.95

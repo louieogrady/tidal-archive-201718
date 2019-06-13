@@ -1,0 +1,22 @@
+cps 1
+bps (104/60)
+
+do
+let x = slow 12 $ scramble 4 $ striate 3 $ s "my4:5 my4:5 my4:5 my4:5" # gain 1.3 # legato 1 |+| speed "-0.99" # end 0.7
+let y = brak $ let x = "~" in interlace (sound $ slow 4 $ x) (sound $ every 3 (append "[bd]*6") x) |+| speed "-0.99" # gain 0.52 # legato 6 # attack 0.5
+d1 $ stack [x, y] # orbit 0
+
+do
+let d = degradeBy 0.1 $ iter 8 $ s "~ bgvinylsnares:17? ~ sequential:6 ~ sequential:7 ~ bgvinylsnares:16" # gain 0.7
+let dd = degradeBy 0.04 $ s "sequential:3 ~ sequential:3 ~" # gain 0.8
+let ddd = degradeBy 0.04 $ s "popkick:7 ~ popkick:7 ~" # gain 0.65
+d2 $ stack [ddd, dd] # orbit 1
+
+every 4 (const $ note (fmap (+7)) "[-12 24 5 2 4 7 12 9 12]/3")
+
+
+m7 $ degradeBy 0.4 $ fast 2 $ cat [n "[g4 b5 d5 ~]", n "[c4 d5 g5 b5]"] # dur (rand + 10) # gain 0.8
+
+d1 $ silence
+d2 $ silence
+m7 $ silence
