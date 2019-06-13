@@ -8,7 +8,7 @@ Some of the code here has been recorded and can be [heard here](https://soundclo
 
 Please also be aware that the code in this repo relies heavily on sample packs and field recordings that are included in the samples folder that comes with SuperDirt (Dirt-Samples).
 
-LoopMidi was used to connect Tidal with external synths/reaktor. 
+[LoopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) was used to connect Tidal with external synths/reaktor. 
 
 The SuperCollider startup file included in this repo (startup-addedorbits.scd) mainly sets up the use of 'orbits' (which most files here use) to create separate audio outputs. You can read about this [here if necessary](https://tidalcycles.org/index.php/Separate_audio_outputs)
 
